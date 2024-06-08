@@ -1,9 +1,8 @@
-DROP TABLE IF EXISTS stock_data;
+DROP TABLE IF EXISTS quote;
 
 
-CREATE TABLE stock_data (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    symbol TEXT UNIQUE NOT NULL,
+CREATE TABLE quote (
+    symbol TEXT PRIMARY KEY NOT NULL,
     shortName TEXT NOT NULL,
     currency TEXT NOT NULL,
     regularMarketPrice FLOAT,
