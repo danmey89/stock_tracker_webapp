@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS quote;
-
+DROP TABLE IF EXISTS history;
 
 CREATE TABLE quote (
     symbol TEXT PRIMARY KEY NOT NULL,
@@ -24,4 +24,13 @@ CREATE TABLE quote (
     fiftyDayAverageChangePercent  FLOAT,
     marketCap FLOAT,
     averageAnalystRating TEXT
+);
+
+CREATE TABLE history (
+    idate TIMESTAMP PRIMARY KEY NOT NULL,
+    AAPL INT,
+    GOOGL INT,
+    META INT,
+    NFLX INT,
+    NVDA INT
 );
