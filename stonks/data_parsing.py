@@ -2,7 +2,7 @@ import json
 import requests
 import os
 import sqlite3
-import db
+from db import get_db
 import pandas as pd
 from datetime import datetime, timedelta
 
@@ -37,7 +37,7 @@ def get_quotes(symbol=SYMBOLS, api_key= os.getenv('YHFINANCE_API_KEY'), testing=
 def insert_quote(symbols=SYMBOLS, testing=True):
     if not testing:
         quote = get_quotes(symbols, testing=False)['quoteResponse']['result']
-        db = db.get_db()
+        db = get_db()
     else: 
         quote = get_quotes()['quoteResponse']['result']
         db = sqlite3.connect('../instance/stonks.sqlite')
@@ -77,7 +77,7 @@ def get_history(symbol=SYMBOLS, api_key= os.getenv('YHFINANCE_API_KEY'), testing
 def insert_history(symbols=SYMBOLS, testing=True):
     if not testing:
         history = get_history(symbols, testing=False)
-        db = db.get_db()
+        db = get_db()
     else:
         history = get_history()
         db = sqlite3.connect('instance/stonks.sqlite')
@@ -112,7 +112,7 @@ def insert_history(symbols=SYMBOLS, testing=True):
             df_index = symbol['timestamp'][i]
             if df_index in index:
                 df.loc[df_index, column] = symbol['close'][i]
-    print(df)
+    
     for i in range(len(df)):
         row = tuple(df.iloc[i])
         db.execute(
@@ -122,3 +122,4 @@ def insert_history(symbols=SYMBOLS, testing=True):
         )
         db.commit()
 
+insert_history(testing=False)
