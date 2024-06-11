@@ -38,13 +38,34 @@ def update(id):
 
         data = db.execute(
         f'SELECT idate, {comp}  FROM history'
-        f" WHERE idate > '{date_off}'"
+        f" WHERE idate > '{date_off}';"
         ).fetchall()
 
+        detail = db.execute(
+            'SELECT * FROM quote'
+            f" WHERE symbol = '{comp}';"
+        ).fetchone()
+
+        columns = db.execute(
+        "SELECT c.name FROM pragma_table_info('quote') c;"
+        ).fetchall()
+        columns = [k[0] for k in columns]
+
+        detail = [k for k in detail]
+        columns = [k for k in columns]
+
+        detail_data = {}
+
+        for i in range(len(detail)):
+            detail_data.update( {columns[i]: detail[i]})
+            
+
         history = []
+
         for i in data:
             object = {'date': i[0], 'close': i[1]}
             history.append(object)
+        
+        detail_data.update( {'history': history} )
 
-        return jsonify(history)
-    
+        return jsonify(detail_data)

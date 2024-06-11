@@ -1,7 +1,7 @@
 /venv/
 /instance/
-test.json
-test1.json
-test1.csv
-test2.json
+/__pycache__/
 
+instance/stonks.sqlite
+stonks/__pycache__/__init__.cpython-310.pyc
+stonks/__pycache__/dashboard.cpython-310.pyc

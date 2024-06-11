@@ -34,11 +34,15 @@ td, th {
 }
 
 td {
-    text-align: left;
+    text-align: right;
 }
 
 th {
-    text-align: right;
+    text-align: left;
+}
+
+.detail {
+    border: none;
 }
 
 header {
@@ -73,4 +77,32 @@ main {
     justify-content: center;
     position: relative;
     background-color: #0b0d1c;
+    max-width: 1200px;
 }
+
+select{
+    background-color: whitesmoke;
+    color:#0b0d1c
+}
+
+#details {
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+    width: 360px;
+}
+#menu {
+    display: block;
+    justify-content: center;
+    width: 360px;
+}
+#select {
+    display: inline-block;
+    justify-content: center;
+    width: 360px;
+    padding-left: 15px;
+}
+ #menu_title {
+    padding-left: 15px;
+    margin-bottom: 10px;
+ }

@@ -28,7 +28,9 @@
         <script src="{{url_for('static', filename='graph.js')}}"></script>
     </div>
     <div id="menu">
-            <label for="comp">Select a company & time frame.
+        <p id="menu_title">Select a company & time frame.</p>
+        <div id="select">
+            <label for="comp">
                 <select id="comp">
                     {% for quote in quotes: %}
                         <option class="comp" value="{{quote['symbol']}}">{{quote['shortName']}}</option>
@@ -44,7 +46,9 @@
                     <option class="time_frame" value="365">1 year</option>
                 </select>
             </label>
-            <button onclick="get_data()">send request</button>
+            <button onclick="get_data()">send request</button> 
+        </div>
+        <div id="details"></div>
     </div>
 </div>
 {% endblock %}
