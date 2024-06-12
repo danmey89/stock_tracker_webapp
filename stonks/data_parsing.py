@@ -2,13 +2,13 @@ import json
 import requests
 import os
 import sqlite3
-from db import get_db
+from .db import get_db
 import pandas as pd
 from datetime import datetime, timedelta
 
 SYMBOLS = 'NVDA,NFLX,META,AAPL,GOOGL'
 
-COLS = ('symbol', 'shortName', 'currency', 'regularMarketPrice', 'postMarketPrice', 'postMarketChange',
+COLS = ('symbol', 'shortName', 'currency', 'regularMarketPrice',
         'regularMarketChange', 'regularMarketDayHigh', 'regularMarketDayRange', 'regularMarketDayLow',
         'regularMarketVolume', 'regularMarketPreviousClose',  'regularMarketOpen', 'bid', 'ask',
         'averageDailyVolume3Month', 'averageDailyVolume10Day', 'fiftyDayAverage', 'fiftyDayAverageChange',
@@ -42,6 +42,9 @@ def insert_quote(symbols=SYMBOLS, testing=True):
         quote = get_quotes()['quoteResponse']['result']
         db = sqlite3.connect('../instance/stonks.sqlite')
 
+    db.execute('DELETE FROM quote')
+    db.commit()
+
     for n in range(len(quote)):
         row = []
         for i in COLS:
@@ -49,7 +52,7 @@ def insert_quote(symbols=SYMBOLS, testing=True):
         row = tuple(row)    
         db.execute(
             'INSERT INTO quote'
-            ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
             row,
         )
         db.commit()
@@ -58,7 +61,7 @@ def insert_quote(symbols=SYMBOLS, testing=True):
 
 def get_history(symbol=SYMBOLS, api_key= os.getenv('YHFINANCE_API_KEY'), testing=True):
     if not testing:
-        url='https://yfapi.net/v8/finance/spark?interval=1d&range=1y&'
+        url='https://yfapi.net/v8/finance/spark?interval=1d&range=1m&'
 
         querystring = {"symbols":symbol}
         headers = {'x-api-key': api_key}
@@ -82,18 +85,16 @@ def insert_history(symbols=SYMBOLS, testing=True):
         history = get_history()
         db = sqlite3.connect('instance/stonks.sqlite')
 
-    try:
-        newest = db.execute(
-            'SELECT* FROM history ORDER BY idate DESC LIMIT 1;'
-        ).fetchone()[0]
-    except sqlite3.InterfaceError:
-        newest = '2000-01-01'
-
-    newest = datetime.strptime(newest, "%Y-%m-%d") + timedelta(hours=20)
-
+    
+    newest = db.execute(
+        'SELECT* FROM history ORDER BY idate DESC LIMIT 1;'
+    ).fetchone()[0]
+    
+    newest = pd.Timestamp(newest)
+    
     index = []
     for h in history['NFLX']['timestamp']:
-        if pd.to_datetime(h, unit='s') > newest:
+        if pd.Timestamp(h) > newest:
             index.append(h)
     
 
@@ -121,5 +122,3 @@ def insert_history(symbols=SYMBOLS, testing=True):
             row,
         )
         db.commit()
-
-insert_history(testing=False)

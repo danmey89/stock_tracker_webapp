@@ -2,8 +2,6 @@ html {
     background-color: #292929;
     color: whitesmoke;
 }
-
-
 table {
     display: table;
     margin: 0 auto;
@@ -11,14 +9,12 @@ table {
     font-size: 12px;
     border-collapse: collapse;
 }
-
 tr{
     display: table-row;
     border-bottom: 1px solid salmon;
     text-wrap: nowrap;
    
 }
-
 tr[class="table_body"]:last-of-type {
     border-bottom: none;
 }
@@ -27,24 +23,19 @@ tr[class="table_body"]:hover {
     background-color: slategray;
     color: #0b0d1c;
 }
-
 td, th {
     border-right: 1px solid salmon;
     padding: 2px 2px;
 }
-
 td {
     text-align: right;
 }
-
 th {
     text-align: left;
 }
-
 .detail {
     border: none;
 }
-
 header {
     display: flex;
     margin: 0 auto;
@@ -61,15 +52,16 @@ main {
     max-width: 1200px;
     flex-wrap: nowrap;
 }
-
-
+body {
+    display: block;
+    justify-content: center;
+}
 #table {
     overflow: scroll;
     max-width: 1200px;
     padding: 5px;
     margin-top: 10px;
-    background-color: #0b0d1c;
-    
+    background-color: #0b0d1c; 
 }
 #chart {
     margin: 10px auto;
@@ -79,12 +71,10 @@ main {
     background-color: #0b0d1c;
     max-width: 1200px;
 }
-
 select{
     background-color: whitesmoke;
     color:#0b0d1c
 }
-
 #details {
     margin-top: 10px;
     display: flex;
@@ -105,4 +95,30 @@ select{
  #menu_title {
     padding-left: 15px;
     margin-bottom: 10px;
- }
+}
+footer {
+    width: 80%;
+    max-width: 1200px;
+    height: 80px;
+    display: flex;
+    background-color: #0b0d1c;
+    margin: 0 auto;
+    justify-content: space-between;
+}
+footer p {
+    margin: auto 20px;
+    font-size: 12px;
+}
+a {
+    color: whitesmoke;
+}
+a:hover {
+    color: salmon;
+}
+button {
+    border-radius: inherit;
+}
+button:hover {
+    background-color: salmon;
+    border-radius: inherit;
+}

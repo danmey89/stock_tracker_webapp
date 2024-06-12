@@ -1,15 +1,32 @@
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for, jsonify
+    Blueprint, render_template, request, jsonify
 )
 from .db import get_db
 import json
 from datetime import date, timedelta
+from .data_parsing import insert_quote, insert_history
+import os
 
 bp = Blueprint('dashboard', __name__)
 
 @bp.route('/')
 def index():
     db = get_db()
+
+    last_update = os.path.join('stonks', 'last_download.txt')
+    today = str(date.today())
+    
+    with open(last_update, 'r') as f:
+        last_download = f.readline()
+    
+    if last_download != today:
+        with open(last_update, 'w') as f:
+            f.write(today)
+        print('loading Data')
+        
+        insert_quote(testing=False)
+        insert_history(testing=False)
+
 
     quotes = db.execute(
         'SELECT * FROM quote;'

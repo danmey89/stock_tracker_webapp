@@ -77,7 +77,6 @@ async function render_graph(comp, time, name) {
         document.getElementById("detail_table").remove();
     }
 
-
     const tbl = document.createElement('table');
     tbl.setAttribute('id', 'detail_table');
     const tbl_body = document.createElement('tbody');
