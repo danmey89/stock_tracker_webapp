@@ -14,9 +14,15 @@ async function render_graph(comp, time, name) {
 
     var dataset = data['history'];
 
+    const parseDate = d3.utcParse("%Y-%m-%d");
+    dataset.forEach(d => {
+    d.date = parseDate(d.date);
+    d.close = +d.close;
+    });
+
     console.log(dataset);
 
-    const xScale = d3.scaleTime(d3.extent(dataset, d => new Date(d.date)), [padding, w - padding]);
+    const xScale = d3.scaleTime(d3.extent(dataset, d => d.date), [padding, w - padding]);
     const yScale = d3.scaleLinear(d3.extent(dataset, d => d.close), [h - padding, padding]);
 
     d3.select('#graph').select('svg').remove();
@@ -34,13 +40,9 @@ async function render_graph(comp, time, name) {
         .attr('font-size', '24')
         .attr('fill', 'white');
 
-    svg.append('rect')
-        .attr('width', '100%')
-        .attr('height', '100%')
-        .attr('fill', 'none');  
 
     const line = d3.line()
-    .x(d => xScale(new Date(d.date)))
+    .x(d => xScale(d.date))
     .y(d => yScale(d.close));
 
 
@@ -72,6 +74,56 @@ async function render_graph(comp, time, name) {
     .attr('stroke', 'salmon')
     .attr('stroke-width', 1.5)
     .attr('fill', 'none');
+
+    const tooltip = d3.select('#graph')
+        .append('div')
+        .attr('class', 'tooltip');
+
+    const circle = svg.append('circle')
+        .attr('r', 0)
+        .attr('fill', 'gray')
+        .style('stroke', 'whitesmoke')
+        .attr('opacity', .7)
+        .style('pointer-events', 'none');
+
+    const listening_rect = svg.append('rect')
+    .attr('width', w - padding)
+    .attr('height', '100%')
+    .style('fill', 'white')
+    .attr('id', 'listener'); 
+
+    listening_rect.on("mouseleave", function () {
+        circle.transition()
+          .duration(50)
+          .attr("r", 0);
+    
+        tooltip.style("display", "none");
+    });
+
+    listening_rect.on('mousemove', function(event) {
+        const x_coord = d3.pointer(event, this);
+        const bisect_date = d3.bisector(d => d.date).left;
+        const x0 = xScale.invert(x_coord[0]);
+        const i = bisect_date(dataset, x0, 1);
+        const d0 = dataset[i - 1];
+        const d1 = dataset[i];
+        const f = x0 - d0.date > d1.date - x0 ? d1 : d0;
+        const x_pos = xScale(f.date);
+        const y_pos = yScale(f.close);
+
+        circle.attr('cx', x_pos).attr('cy', y_pos);
+
+        circle.transition()
+        .duration(50)
+        .attr("r", 5);
+
+        tooltip
+        .style("display", "block")
+        .attr("left", '${x_pos}px')
+        .attr("top", '${y_pos}px')
+        .html(`<strong>Date:</strong> ${f.date.toLocaleString('en-GB', {dateStyle: 'short'})}<br><strong>closing value:</strong> ${f.close !== undefined ? f.close  : 'N/A'}`);
+    });
+
 
     if (document.contains(document.getElementById("detail_table"))) {
         document.getElementById("detail_table").remove();
@@ -124,8 +176,6 @@ async function render_graph(comp, time, name) {
         per50.setAttribute('class', 'detail');
             const per50_h = document.createElement('th');
             per50_h.setAttribute('class', 'detail');
-                /*const per50_h_t = document.createTextNode('Fifty day average change:');
-                per50_h.appendChild(per50_h_t);*/
         per50.appendChild(per50_h);
             const per50_b = document.createElement('td');
             per50_b.setAttribute('class', 'detail')

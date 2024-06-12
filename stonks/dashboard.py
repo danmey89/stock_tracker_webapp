@@ -70,19 +70,19 @@ def update(id):
 
         detail = [k for k in detail]
         columns = [k for k in columns]
+        data = [k for k in data]
 
         detail_data = {}
 
         for i in range(len(detail)):
             detail_data.update( {columns[i]: detail[i]})
-            
 
         history = []
 
         for i in data:
-            object = {'date': i[0], 'close': i[1]}
+            object = {'date': i[0].strftime('%Y-%m-%d'), 'close': i[1]}
             history.append(object)
-        
+        print(history)
         detail_data.update( {'history': history} )
 
         return jsonify(detail_data)

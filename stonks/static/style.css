@@ -42,13 +42,13 @@ header {
     justify-content: center;
     background-color: #0b0d1c;
     max-width: 1200px;
-    width: 80%;
+    width: 100%;
 }
 main {
     display: block;
     margin: 0 auto;
     justify-content: center;
-    width: 80%;
+    width: 100%;
     max-width: 1200px;
     flex-wrap: nowrap;
 }
@@ -97,7 +97,7 @@ select{
     margin-bottom: 10px;
 }
 footer {
-    width: 80%;
+    width: 100%;
     max-width: 1200px;
     height: 80px;
     display: flex;
@@ -121,4 +121,22 @@ button {
 button:hover {
     background-color: salmon;
     border-radius: inherit;
+}
+#listener {
+    pointer-events: all;
+    fill-opacity: 0;
+    stroke-opacity: 0;
+    z-index: 300;
+}
+/*
+.tooltip {
+    position: absolute;
+    padding: 10px;
+    background-color: steelblue;
+    color: whitesmoke;
+    border: 1px solid whitesmoke;
+    border-radius: 10px;
+    display: none;
+    opacity: .7;
+    z-index: 400;
 }
