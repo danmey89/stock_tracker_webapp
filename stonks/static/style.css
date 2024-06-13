@@ -2,11 +2,14 @@ html {
     background-color: #292929;
     color: whitesmoke;
 }
+body{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 14px;
+}
 table {
     display: table;
     margin: 0 auto;
     justify-content: left;
-    font-size: 12px;
     border-collapse: collapse;
 }
 tr{
@@ -20,12 +23,15 @@ tr[class="table_body"]:last-of-type {
 }
 
 tr[class="table_body"]:hover {
-    background-color: slategray;
+    background-color: Gainsboro;
     color: #0b0d1c;
 }
 td, th {
     border-right: 1px solid salmon;
     padding: 2px 2px;
+}
+td:last-of-type, th:last-of-type {
+    border: none;
 }
 td {
     text-align: right;
@@ -37,12 +43,19 @@ th {
     border: none;
 }
 header {
-    display: flex;
+    display: block;
     margin: 0 auto;
-    justify-content: center;
     background-color: #0b0d1c;
     max-width: 1200px;
     width: 100%;
+    height: 100px;
+}
+h1 {
+    margin: auto;
+    text-align: center;
+    padding-top: 25px;
+    font-size: 48px;
+    
 }
 main {
     display: block;
@@ -56,13 +69,35 @@ body {
     display: block;
     justify-content: center;
 }
+#table_border {
+    max-width: 1200px;
+    background-color: #0b0d1c;
+}
 #table {
     overflow: scroll;
     max-width: 1200px;
-    padding: 5px;
-    margin-top: 10px;
+    padding: 10px 0 10px 0;
+    margin: 10px 10px 0 10px;
     background-color: #0b0d1c; 
+    overflow-y: hidden;
 }
+::-webkit-scrollbar {
+    height: 7px;
+}
+::-webkit-scrollbar {
+    width: 7px;
+}
+::-webkit-scrollbar-track {
+    background: Gainsboro;
+    border-radius: 4px;
+  }
+::-webkit-scrollbar-thumb {
+    background: gray;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: salmon;
+  }
 #chart {
     margin: 10px auto;
     display: flex;
@@ -70,10 +105,12 @@ body {
     position: relative;
     background-color: #0b0d1c;
     max-width: 1200px;
+    flex-wrap: wrap;
 }
 select{
     background-color: whitesmoke;
-    color:#0b0d1c
+    color:#0b0d1c;
+    border-style: solid;
 }
 #details {
     margin-top: 10px;
@@ -83,18 +120,24 @@ select{
 }
 #menu {
     display: block;
-    justify-content: center;
     width: 360px;
 }
 #select {
-    display: inline-block;
-    justify-content: center;
+    display: inline;
     width: 360px;
     padding-left: 15px;
 }
- #menu_title {
+#menu_title {
     padding-left: 15px;
     margin-bottom: 10px;
+    font-size: 16px;
+    
+}
+#detail_table {
+    display: flex;
+    justify-content: space-between;
+    width: 360px;
+    padding-left: 15px;
 }
 footer {
     width: 100%;
@@ -106,8 +149,7 @@ footer {
     justify-content: space-between;
 }
 footer p {
-    margin: auto 20px;
-    font-size: 12px;
+    margin: auto 30px;
 }
 a {
     color: whitesmoke;
@@ -117,6 +159,7 @@ a:hover {
 }
 button {
     border-radius: inherit;
+    border-style: solid;
 }
 button:hover {
     background-color: salmon;
@@ -128,15 +171,4 @@ button:hover {
     stroke-opacity: 0;
     z-index: 300;
 }
-/*
-.tooltip {
-    position: absolute;
-    padding: 10px;
-    background-color: steelblue;
-    color: whitesmoke;
-    border: 1px solid whitesmoke;
-    border-radius: 10px;
-    display: none;
-    opacity: .7;
-    z-index: 400;
-}
+

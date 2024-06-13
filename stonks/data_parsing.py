@@ -61,7 +61,7 @@ def insert_quote(symbols=SYMBOLS, testing=True):
 
 def get_history(symbol=SYMBOLS, api_key= os.getenv('YHFINANCE_API_KEY'), testing=True):
     if not testing:
-        url='https://yfapi.net/v8/finance/spark?interval=1d&range=1m&'
+        url='https://yfapi.net/v8/finance/spark?interval=1d&range=1mo&'
 
         querystring = {"symbols":symbol}
         headers = {'x-api-key': api_key}
@@ -90,21 +90,20 @@ def insert_history(symbols=SYMBOLS, testing=True):
         'SELECT* FROM history ORDER BY idate DESC LIMIT 1;'
     ).fetchone()[0]
     
-    newest = pd.Timestamp(newest)
+    newest = newest.strftime('%s')
     
-    index = []
-    for h in history['NFLX']['timestamp']:
-        if pd.Timestamp(h) > newest:
-            index.append(h)
+    for sym in history:
+        [int(str(k)[:-4]+'0000') for k in history[sym]['timestamp']]
     
+    
+    index = history['NFLX']['timestamp']
 
     columns = [k for k in history.keys()]
     columns.sort()
     columns.insert(0, 'date')
 
     df = pd.DataFrame(columns=columns, index=index)
-    df['date'] = index
-    df['date'] = pd.to_datetime(df['date'], unit='s')
+    df['date'] = [datetime.fromtimestamp(k) for k in history['NFLX']['timestamp']]
     df['date'] = df['date'].dt.date
     
     for column in columns[1:]:    
@@ -117,7 +116,7 @@ def insert_history(symbols=SYMBOLS, testing=True):
     for i in range(len(df)):
         row = tuple(df.iloc[i])
         db.execute(
-            'INSERT INTO history'
+            'INSERT OR REPLACE INTO history'
             ' VALUES (?, ?, ?, ?, ?, ?)',
             row,
         )

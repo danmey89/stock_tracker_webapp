@@ -77,13 +77,19 @@ async function render_graph(comp, time, name) {
 
     const tooltip = d3.select('#graph')
         .append('div')
-        .attr('class', 'tooltip');
+        .attr('class', 'tooltip')
+        .style('position', 'absolute')
+        .style('width', 'auto')
+        .style('border', '1px solid rgba(245, 245, 245, .6)')
+        .style('background-color', 'rgba(128, 128, 128, .7)')
+        .style('display', 'none')
+        .style('font-size', '16px')
+        .style('padding', '2px');
 
     const circle = svg.append('circle')
         .attr('r', 0)
-        .attr('fill', 'gray')
+        .attr('fill', 'whitesmoke')
         .style('stroke', 'whitesmoke')
-        .attr('opacity', .7)
         .style('pointer-events', 'none');
 
     const listening_rect = svg.append('rect')
@@ -115,12 +121,12 @@ async function render_graph(comp, time, name) {
 
         circle.transition()
         .duration(50)
-        .attr("r", 5);
+        .attr("r", 2);
 
         tooltip
         .style("display", "block")
-        .attr("left", '${x_pos}px')
-        .attr("top", '${y_pos}px')
+        .style("left", `${x_pos - 80}px`)
+        .style("top", `${y_pos - 50}px`)
         .html(`<strong>Date:</strong> ${f.date.toLocaleString('en-GB', {dateStyle: 'short'})}<br><strong>closing value:</strong> ${f.close !== undefined ? f.close  : 'N/A'}`);
     });
 
@@ -132,7 +138,7 @@ async function render_graph(comp, time, name) {
     const tbl = document.createElement('table');
     tbl.setAttribute('id', 'detail_table');
     const tbl_body = document.createElement('tbody');
-    
+  
         const reg_price = document.createElement('tr');
         reg_price.setAttribute('class', 'detail');
             const reg_price_h = document.createElement('th');
@@ -223,12 +229,15 @@ async function render_graph(comp, time, name) {
 };
 
 function get_data() {
-    var comp_e = document.getElementById('comp');
-    var comp_v = comp_e.options[comp_e.selectedIndex].value;
-    var comp_c = comp_e.options[comp_e.selectedIndex].text;
+    let comp_e = document.getElementById('comp');
+    let comp_v = comp_e.options[comp_e.selectedIndex].value;
+    let comp_c = comp_e.options[comp_e.selectedIndex].text;
 
-    var time_e = document.getElementById('time_frame');
-    var time_v = time_e.options[time_e.selectedIndex].value;
+    let time_e = document.getElementById('time_frame');
+    let time_v = time_e.options[time_e.selectedIndex].value;
 
     render_graph(comp_v, time_v, comp_c);
 }
+
+
+document.querySelectorAll('select').forEach(d => d.addEventListener('change', console.log('tadaah!')));

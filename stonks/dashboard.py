@@ -80,9 +80,11 @@ def update(id):
         history = []
 
         for i in data:
-            object = {'date': i[0].strftime('%Y-%m-%d'), 'close': i[1]}
-            history.append(object)
-        print(history)
+            print(i[1])
+            if i[1] != None:
+                object = {'date': i[0].strftime('%Y-%m-%d'), 'close': i[1]}
+                history.append(object)
+        
         detail_data.update( {'history': history} )
 
         return jsonify(detail_data)

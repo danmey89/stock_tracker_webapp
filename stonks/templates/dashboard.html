@@ -2,25 +2,27 @@
 
 
 {% block content %}
-<div id="table">
-<table>
-    <thead>
-    <tr>
-        {% for col in columns: %}
-            <th> {{col}} </th>
-        {% endfor %}
-    </tr>
-    </thead>
-    <tbody>
-        {% for quote in quotes: %}
-                <tr class="table_body" id="{{quote['symbol']}}">
+<div id="table_border">
+    <div id="table">
+        <table id="big_table">
+            <thead>
+                <tr>
                     {% for col in columns: %}
-                    <td>{{ quote[col] }}</td>
+                        <th> {{col}} </th>
                     {% endfor %}
                 </tr>
-        {% endfor %}
-    </tbody>
-</table>
+            </thead>
+            <tbody>
+                {% for quote in quotes: %}
+                    <tr class="table_body" id="{{quote['symbol']}}">
+                        {% for col in columns: %}
+                        <td>{{ quote[col] }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 <div id="chart">
     <div id="graph">
@@ -28,17 +30,17 @@
         <script src="{{url_for('static', filename='d3.v7.min.js')}}"></script>
     </div>
     <div id="menu">
-        <p id="menu_title">Select a company & time frame.</p>
+        <p id="menu_title"><strong> Select a company & time frame.</strong></p>
         <div id="select">
             <label for="comp">
-                <select id="comp">
+                <select id="comp" class="selector">
                     {% for quote in quotes: %}
                         <option class="comp" value="{{quote['symbol']}}">{{quote['shortName']}}</option>
                     {% endfor %}
                 </select>
             </label>
             <label for="time_frame">
-                <select id="time_frame">
+                <select id="time_frame" class="selector">
                     <option class="time_frame" value="7">1 week</option>
                     <option class="time_frame" value="21">3 weeks</option>
                     <option class="time_frame" value="30">30 days</option>
