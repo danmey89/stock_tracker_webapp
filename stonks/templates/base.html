@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <header>
+        <h1>{% block header %}{% endblock %}</h1>
+        <nav>
+            <h4><a class="navigate" href="/news/">News</a></h4>
+            <h4><a class="navigate" href="/stocks/">Stock Ticker</a></h4>
+        </nav>
+    </header>
     {% for message in get_flashed_messages() %}
         <div class="flash">{{ message }}</div>
     {% endfor %}

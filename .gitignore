@@ -13,3 +13,7 @@ stonks/__pycache__/data_parsing.cpython-310.pyc
 newsdump.json
 stonks/last_download.txt
 instance/stonks.sqlite
+stonks/__pycache__/__init__.cpython-310.pyc
+stonks/__pycache__/constants.cpython-310.pyc
+stonks/__pycache__/news.cpython-310.pyc
+stonks/__pycache__/stocks.cpython-310.pyc

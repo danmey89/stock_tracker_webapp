@@ -7,7 +7,7 @@ import json
 
 bp = Blueprint('news', __name__)
 
-@bp.route('/news')
+@bp.route('/news/')
 def news():
 
     CATEGORIES = {'Business': 'business', 'Entertainment': 'entertainment', 'Health': 'health',
@@ -16,7 +16,7 @@ def news():
                   'Poland': 'pl', 'Belgium': 'be', 'India': 'in', 'Switzerland': 'ch',
                   'Turkey': 'tr', 'Ukraine': 'ua', 'United Kingdom': 'gb', 'Austria': 'at'}
 
-    return render_template('news.html', categories=CATEGORIES, countries=COUNTRIES)
+    return render_template('news.html', categories=CATEGORIES, countries=dict(sorted(COUNTRIES.items())))
 
 
 
@@ -43,3 +43,5 @@ def update(id, testing=True):
             top_headlines = json.loads(f.read())  
 
     return jsonify(top_headlines)
+
+#TODO keywords testing & parsing; link from stocks details to news of company 

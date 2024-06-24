@@ -9,7 +9,7 @@ import os
 
 bp = Blueprint('stocks', __name__)
 
-@bp.route('/')
+@bp.route('/stocks/')
 def index():
     db = get_db()
 

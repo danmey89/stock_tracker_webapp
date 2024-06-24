@@ -57,6 +57,24 @@ h1 {
     font-size: 48px;
     
 }
+.navigate {
+    text-decoration: none;
+    color: salmon;
+}
+.navigate:hover {
+    background-color: whitesmoke;
+    color: #0b0d1c;
+}
+h4 {
+    padding: 0 5px 2px 5px;
+    margin: 0 auto 2px auto;
+    font-size: 1.2em;   
+}
+nav {
+    margin-top: -1.8rem;
+    display: inline-flex;
+    justify-content: flex-end;
+}
 main {
     display: block;
     margin: 0 auto;
@@ -76,6 +94,13 @@ body {
     margin: 10px auto 0 auto;
     padding: 10px 5px 10px 5px;
     background-color: #0b0d1c;
+}
+#news_form {
+    display: flex;
+    justify-content: center;
+}
+#category, #country, #keywords {
+    margin-right: 10px;
 }
 .headline {
     display: inline-flex;
