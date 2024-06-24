@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}News{% endblock %}
+
+{% block content %}
+<header>
+    <h1>News</h1>
+    </header>
+<main>
+    <div id="news_form">
+        <label for="keywords">keywords: <input  type="text" id="keywords"/></label>
+        <label for="category">Category: 
+            <select id="category">
+                <option class="category" value="">selection optional</option>
+                {% for key, value in categories.items(): %}
+                    <option class="category" value="{{value}}">{{key}}</option>
+                {% endfor %}
+            </select> 
+        </label>
+        <label for="country">Country: 
+            <select id="country">
+                <option class="country" value="">selection optional</option>
+                {% for key, value in countries.items(): %}
+                    <option class="country" value="{{value}}">{{key}}</option>
+                {% endfor %}
+            </select> 
+        </label>
+        <button onclick="get_news()">Submit</button>
+    </div>
+    <div id="news_panel">
+        <script src="{{url_for('static', filename='news.js')}}"></script>
+    </div>
+</main>
+<footer>
+    <p>Copyright Daniel Meyer 2024</p>
+</footer>
+{% endblock %}

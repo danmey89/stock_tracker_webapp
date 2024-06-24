@@ -7,7 +7,7 @@ from datetime import date, timedelta
 from .data_parsing import insert_quote, insert_history
 import os
 
-bp = Blueprint('dashboard', __name__)
+bp = Blueprint('stocks', __name__)
 
 @bp.route('/')
 def index():
@@ -38,7 +38,7 @@ def index():
     columns = [k[0] for k in columns]
     
 
-    return render_template('/dashboard.html', quotes=quotes, columns=columns)
+    return render_template('/stocks.html', quotes=quotes, columns=columns)
 
 
 
@@ -80,7 +80,6 @@ def update(id):
         history = []
 
         for i in data:
-            print(i[1])
             if i[1] != None:
                 object = {'date': i[0].strftime('%Y-%m-%d'), 'close': i[1]}
                 history.append(object)

@@ -4,7 +4,7 @@ html {
 }
 body{
     font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 14px;
+    font-size: 16px;
 }
 table {
     display: table;
@@ -68,6 +68,30 @@ main {
 body {
     display: block;
     justify-content: center;
+    
+}
+#news_form, #news_panel {
+    
+    max-width: 1200px;
+    margin: 10px auto 0 auto;
+    padding: 10px 5px 10px 5px;
+    background-color: #0b0d1c;
+}
+.headline {
+    display: inline-flex;
+    max-width: 1200px;
+    width: 100%;
+    border-bottom: 1px solid whitesmoke;
+}
+.news_text {
+    padding: 5px;
+}
+img {
+    width: 375px;
+    height: 250px;
+    padding: 15px 10px;
+    display: block;
+    margin: 0 auto;
 }
 #table_border {
     max-width: 1200px;
@@ -99,7 +123,7 @@ body {
     background: salmon;
   }
 #chart {
-    margin: 10px auto;
+    margin: 10px auto 0 auto;
     display: flex;
     justify-content: center;
     position: relative;
@@ -145,7 +169,7 @@ footer {
     height: 80px;
     display: flex;
     background-color: #0b0d1c;
-    margin: 0 auto;
+    margin: 10px auto;
     justify-content: space-between;
 }
 footer p {
@@ -156,6 +180,9 @@ a {
 }
 a:hover {
     color: salmon;
+}
+.news_thumbnail {
+    text-decoration: none;
 }
 button {
     border-radius: inherit;
@@ -171,4 +198,8 @@ button:hover {
     stroke-opacity: 0;
     z-index: 300;
 }
-
+hr {
+    border-top: 1px solid whitesmoke;
+    display: block;
+    margin: 0;
+}

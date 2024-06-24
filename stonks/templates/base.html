@@ -1,26 +1,15 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>{% block title %}{% endblock %} Dashboard</title>
+    <title>{% block title %}{% endblock %}</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width initial-scale=1">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <header>
-    <h1>Dashboard</h1>
-    </header>
-    <main>
-    <section class="content">
     {% for message in get_flashed_messages() %}
         <div class="flash">{{ message }}</div>
     {% endfor %}
     {% block content %}{% endblock %}
-    </section>
-    </main>
-    <footer>
-        <p>Copyright Daniel Meyer 2024</p>
-        <p>Data provided by <a href="https://financeapi.net/" target="_blank">YH Finance API</a></p>
-    </footer>
 </body>
 </html>

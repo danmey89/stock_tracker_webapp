@@ -5,6 +5,7 @@ import sqlite3
 from .db import get_db
 import pandas as pd
 from datetime import datetime, timedelta
+from .constants import YHFINANCE_API_KEY as yh_key
 
 SYMBOLS = 'NVDA,NFLX,META,AAPL,GOOGL'
 
@@ -15,7 +16,7 @@ COLS = ('symbol', 'shortName', 'currency', 'regularMarketPrice',
         'fiftyDayAverageChangePercent', 'marketCap', 'averageAnalystRating')
 
 
-def get_quotes(symbol=SYMBOLS, api_key= os.getenv('YHFINANCE_API_KEY'), testing=True):
+def get_quotes(symbol=SYMBOLS, api_key=yh_key, testing=True):
     if not testing:
         url = "https://yfapi.net/v6/finance/quote"
 
@@ -30,16 +31,16 @@ def get_quotes(symbol=SYMBOLS, api_key= os.getenv('YHFINANCE_API_KEY'), testing=
             quotes = json.loads(f.read())
             
 
-    return quotes
+    return quotes['quoteResponse']['result']
 
 
 
 def insert_quote(symbols=SYMBOLS, testing=True):
     if not testing:
-        quote = get_quotes(symbols, testing=False)['quoteResponse']['result']
+        quote = get_quotes(symbols, testing=False)
         db = get_db()
     else: 
-        quote = get_quotes()['quoteResponse']['result']
+        quote = get_quotes()
         db = sqlite3.connect('../instance/stonks.sqlite')
 
     db.execute('DELETE FROM quote')
@@ -59,7 +60,7 @@ def insert_quote(symbols=SYMBOLS, testing=True):
 
 
 
-def get_history(symbol=SYMBOLS, api_key= os.getenv('YHFINANCE_API_KEY'), testing=True):
+def get_history(symbol=SYMBOLS, api_key= yh_key, testing=True):
     if not testing:
         url='https://yfapi.net/v8/finance/spark?interval=1d&range=1mo&'
 

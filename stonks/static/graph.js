@@ -7,7 +7,7 @@ async function render_graph(comp, time, name) {
     const h = 400;
     const padding = 40;
 
-    const response = await fetch(url);
+    let response = await fetch(url);
     let data = await response.json();
 
     console.log(data)

@@ -1,7 +1,7 @@
 import os
 from flask import Flask
 
-from . import db, dashboard
+from . import db, stocks, news
 
 
 def create_app(test_config=None):
@@ -27,7 +27,9 @@ def create_app(test_config=None):
 
     db.init_app(app)
 
-    app.register_blueprint(dashboard.bp)
+    app.register_blueprint(stocks.bp)
+
+    app.register_blueprint(news.bp)
 
     return app
 
