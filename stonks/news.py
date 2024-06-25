@@ -1,9 +1,9 @@
 from flask import (
-    Blueprint, render_template, request, jsonify
+    Blueprint, render_template, jsonify
 )
-from newsapi import NewsApiClient
 from .constants import NEWS_API_KEY as api_key
 import json
+import requests
 
 bp = Blueprint('news', __name__)
 
@@ -21,27 +21,43 @@ def news():
 
 
 @bp.route('/get_news/<id>', methods=['GET', 'POST'])
-def update(id, testing=True):
+def update(id, testing=False):
 
     params = id.split('&')
 
-    q = params[0] if params[0] != '' else None
-    category = params[1] if params[1] != '' else None
-    country = params[2] if params[2] != '' else None
-
     if not testing:
 
-        if request.method == 'GET':
-            newsapi = NewsApiClient(api_key)
-            top_headlines = newsapi.get_top_headlines(
-                                            q = q,
-                                            category = category,
-                                            country = country
-        )
+        key = api_key
+
+        keywords = params[0]
+        country = params[1]
+        category = params[2]
+
+        if keywords != '':
+            param_0 = 'q=' + keywords + '&'
+        else:
+            param_0 = keywords
+
+        if country != "":
+            param_1 = 'country=' + country + '&'
+        else:
+            param_1 = country
+
+        if category != "":
+            param_2 = 'category=' + category + '&'
+        else:
+            param_2 = category
+
+        url = f'https://newsapi.org/v2/top-headlines?{param_0}{param_1}{param_2}apiKey={key}'
+
+        news = requests.get(url)
+        news = news.json()
+
+
     else:
         with open('newsdump.json', 'r') as f:
-            top_headlines = json.loads(f.read())  
+            news = json.loads(f.read())  
 
-    return jsonify(top_headlines)
+    return jsonify(news)
 
-#TODO keywords testing & parsing; link from stocks details to news of company 
+#TODO link from stocks details to news of company 

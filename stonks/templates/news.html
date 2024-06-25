@@ -8,10 +8,10 @@
 
 <main>
     <div id="news_form">
-        <label for="keywords">keywords: <input  type="text" id="keywords"/></label>
+        <label for="keywords">keyword: <input  type="text" id="keywords"/></label>
         <label for="category">Category: 
             <select id="category">
-                <option class="category" value="">selection optional</option>
+                <option class="category" value="">all</option>
                 {% for key, value in categories.items(): %}
                     <option class="category" value="{{value}}">{{key}}</option>
                 {% endfor %}
@@ -19,7 +19,7 @@
         </label>
         <label for="country">Country: 
             <select id="country">
-                <option class="country" value="">selection optional</option>
+                <option class="country" value="">all</option>
                 {% for key, value in countries.items(): %}
                     <option class="country" value="{{value}}">{{key}}</option>
                 {% endfor %}
@@ -29,9 +29,11 @@
     </div>
     <div id="news_panel">
         <script src="{{url_for('static', filename='news.js')}}"></script>
+        
     </div>
 </main>
 <footer>
     <p>Copyright Daniel Meyer 2024</p>
+    <p>News provided by <a href="https://newsapi.org/" target="_blank">News API</a></p>
 </footer>
 {% endblock %}

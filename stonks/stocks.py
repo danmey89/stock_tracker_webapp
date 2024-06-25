@@ -2,7 +2,6 @@ from flask import (
     Blueprint, render_template, request, jsonify
 )
 from .db import get_db
-import json
 from datetime import date, timedelta
 from .data_parsing import insert_quote, insert_history
 import os

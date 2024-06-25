@@ -228,3 +228,8 @@ hr {
     display: block;
     margin: 0;
 }
+#no_results {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+}
