@@ -12,7 +12,7 @@ bp = Blueprint('stocks', __name__)
 def index():
     db = get_db()
 
-    last_update = os.path.join('stonks', 'last_download.txt')
+    last_update = os.path.join('utility_webapp', 'last_download.txt')
     today = str(date.today())
     
     with open(last_update, 'r') as f:

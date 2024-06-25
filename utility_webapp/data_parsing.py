@@ -1,6 +1,5 @@
 import json
 import requests
-import os
 import sqlite3
 from .db import get_db
 import pandas as pd
@@ -41,7 +40,7 @@ def insert_quote(symbols=SYMBOLS, testing=True):
         db = get_db()
     else: 
         quote = get_quotes()
-        db = sqlite3.connect('../instance/stonks.sqlite')
+        db = sqlite3.connect('../instance/utility_webapp.sqlite')
 
     db.execute('DELETE FROM quote')
     db.commit()
@@ -84,7 +83,7 @@ def insert_history(symbols=SYMBOLS, testing=True):
         db = get_db()
     else:
         history = get_history()
-        db = sqlite3.connect('instance/stonks.sqlite')
+        db = sqlite3.connect('instance/utility_webapp.sqlite')
 
     
     newest = db.execute(

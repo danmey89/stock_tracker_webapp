@@ -1,0 +1,23 @@
+[project]
+name = "utility_webapp"
+version = "1.0.0"
+description = "a collection of different webapps. development ongoing"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+"click==8.1.7",
+"Flask==3.0.3",
+"pandas==2.2.2",
+"Requests==2.32.3"
+]
+
+[project.urls]
+Homepage = "https://github.com/danmey89/stock_tracker_webapp"
+Issues = "https://github.com/danmey89/stock_tracker_webapp/issues"
+
+[build-system]
+requires = ["flit_core<4"]
+build-backend = "flit_core.buildapi"
